@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arya Agiwal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		<header id="header">
+            <div class="inner">
+                <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+                <h1><strong>I am Arya Agiwal.</strong><br>Click around to view my portfolio.</h1>
+            </div>
+        </header>
+
+		<!-- Main -->
+			<div id="main">
+                <section id="one">
+                    <header class="major">
+                        <h2>Radix Converter: Next Steps</h2>
+                    </header>
+                    <p> In order to understand how to improve this algorithm, it is important to understand what it is doing in the first place. 
+                        The radix converter takes in a few parameters before it begins calculating:
+                    </p>
+                    <ul>
+                        <li>An input number, which can have a fractional portion.</li>
+                        <li>The radix, or base, of the input number. For example, decimal.</li>
+                        <li>The number of fractional digits the output should have. </li>
+                        <li>The radix, or base, of the output number. For example, octal.</li>
+                    </ul>
+                    <p>
+                        Instead of using doubles or floats to store the input number, I use two separate integers. This makes calculations more precise
+                        because doubles and floats may round the fractions that you insert. By using integers, and treating the whole portion of the 
+                        number and fractional portion of the number as two different integers, I can preserve the exact original value when calculating
+                        the output.
+
+                        <br><br>I also do not allow negative numbers as input, because regardless of what radix you are converting to, the sign of the number will not 
+                        be impacted. Therefore, it is not necesary for a converter to need to handle negatives. 
+
+                        <br><br>To better understand what I mean by separating the whole and fractional portions of the inputted number into integers, here is the excerpt
+                        from the actual program that handles this, in C:
+                    </p>
+                    <pre><code>printf("\nEnter a positive number (-1 to quit):\n");
+int whole = 0;
+int frac = 0;
+scanf("%d.%d", &whole, &frac);
+if (whole == -1) {
+    break;
+}</code></pre>
+                </section>
+                <p> Next, using the whole and fractional portions, each in their separate integers, I calculate what the number would be in base 10 through a simple pattern. For each 
+                    digit place (in decimal, the first digit place is the 1s, the second is the 10s, the negative first is the 1/10s), I multiply the value by the initial radix to the power
+                    of the index of the place it is at. The index starts at 0, not 1. For example, if I have the number 22 in octal, I would do 2 * 8<sup>0</sup> + 2 * 8<sup>1</sup> to get a 
+                    decimal value of 18. This same process is used for fractional places, too. For example, if I have the number .22 in octal, I would do 2 * 8<sup>-1</sup> + 2 * 8<sup>-2</sup>
+                    to get a decimal value of .28125. Here is how this algorithm works in C, where int frac holds the decimal value as an integer, and int len holds how many places frac has:
+                </p>
+                <pre><code>int num = 0;
+for (int i = len; i > 0; i--) {
+    num += (frac % ((int) pow(10,dec+1-i))) * pow(radix, -i) * pow(10,i);
+    frac /= pow(10,dec+1-i);
+    frac *= pow(10,dec+1-i);
+}
+return num;</code></pre>
+                <p>
+                    Once the value is converted into its base 10 form, with the whole and fractional portions still in their own integers, we have to now convert it to the new base that 
+                    we have stored as a parameter. For the fractional portion, we need to calculate the new fractional to the specified number of places as well. In order to convert a base
+                    10 number into another radix, you have to repeat this process of dividing the base 10 number by the new radix, storing the remainder, and repeating the process with the 
+                    quotient. At the end, you reverse the order of remainders you obtained at each step, and that is the value of your base 10 number in the new base. The reason we like to 
+                    do this process in base 10 is because we are used to division, and all arithmetic for that matter, in base 10. But technically it is possible to use this process in any 
+                    base to convert to any base, if you are comfortable doing so. The image below makes this algorithm easier to understand:
+                </p>
+                <div class="col-12"><span class="image fit"><img src="images/conversion.jpg" alt="" /></span></div>	
+                <p>
+                    Now that we understand the algorithm has been explained, what can be improved? For starters, the biggest flaw I see with my current algorithm is that even though
+                    it can technically handle radices above 10 (think of 16 for hex), it does not have a way of properly recieving or outputting numbers of these radices. For example,
+                    if I am in base 11, and want to store a 10 in one of my digit places, how do I do that without some new symbol to represent it? Of course, every Computer Scientist
+                    knows that hex numbers have this same issue, which is why characters 'A' through 'F' represent 10 - 15. For my program, however, I would not stop at 'A' through 'F'.
+                    In the way that the number 10 is represented by the symbol at the ASCII value of 'A' + 0 and 15 is represented by the symbol at the ASCII value at 'A' + 5, I would
+                    have the number 33 represented by the symbol at the ASCII value of 'A' + 23. This happens to be the symbol 'X'. <br><br>
+                    There is one small thing I have to adjust about this technique, however. For radices above 41, the symbols used to represent these higher decimal values leak into 
+                    the lowercase section of the ASCII table. In other words, 'A' may represent 10, but 'a' would represent 42. The reason this causes problems is because by convention,
+                    both lowercase and uppercase 'A' through 'F' are currently accepted in hex. Therefore, to account for this, I would have to ask users to enter their values using uppercase
+                    characters only, unless they have chosen a radix above 41, in which case even certain amounts of lowercase letters hold decimal values. <br><br>
+                    Of course, the ASCII table has an end, so I cannot represent an infinite amount of radices, but for practical purposes, I don't imagine anyone would be interested in converting
+                    a number to base 75 or any other ridiculously large base. <br><br>
+                    With this issue resolved, I now have my second area for improvement: number storage. I currently have a big issue where if I enter a really large whole number or lots of 
+                    decimal places, the converter is innacurate. This is because the number is overflowing the maximum value storable by an integer, causing it's value to be interpreted 
+                    inaccurately. Solving this issue would probably require me to use an array to store each digit of the number being converted, and handle remainders and arithmetic manually rather
+                    than through integer operations. Luckily, there is a very high chance that another Computer Scientist working in C has reached a similar point as me, and has already made an importable
+                    file to handle this. <br><br>
+                    Overall, this project was a lot of fun to make, and taught me a lot about how numbers can be represented and how different radices relate to each other. I plan on implementing 
+                    the previously mentioned improvements in the future, to make this program more powerful.
+                </p>
+			</div>
+
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="icons">
+                    <li><a href="https://www.linkedin.com/in/aryaagiwal/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/aryaagiwal" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="tel:2145575697" class="icon solid fa-mobile"></a></li>
+                    <li><a href="mailto:aryaagiwal@utexas.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Arya Agiwal 2022</li><li>Design from <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
