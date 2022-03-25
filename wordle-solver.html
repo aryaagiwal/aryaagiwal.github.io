@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arya Agiwal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		<header id="header">
+            <div class="inner">
+                <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+                <h1><strong>I am Arya Agiwal.</strong><br>Click around to view my portfolio.</h1>
+            </div>
+        </header>
+
+		<!-- Main -->
+			<div id="main">
+                <section id="one">
+                    <header class="major">
+                        <h2>Wordle Solver: The Algorithmic Approach</h2>
+                    </header>
+                    <p> In response to the new craze that is <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>, <a href=https://www.linkedin.com/in/oscarjgoes>Oscar Goes</a> 
+                        and I decided to take a crack at making a solver. However, unlike <a href="https://www.youtube.com/watch?v=v68zYyaEmEA">3Blue1Brown who utilizes information theory in \
+                        his solution's approach</a>, we decided to use fixed letter positional frequency values to determine the next best word. <br><br>
+                        For those who don't know how Wordle works, here is a quick rundown of how a typical game goes:
+                    </p>
+                    <ol>
+                        <li>You enter a 5 letter word.</li>
+                        <li>Wordle responds with data for each letter.</li>
+                            <ul>
+                                <li>If the letter turns green, you have correctly found the spot of the letter in the correct word.</li>
+                                <li>If the letter turns yellow, you have found a letter in the correct word, but it's misplaced.</li>
+                                <li>If the letter turns grey, it is not in the correct word.</li>
+                            </ul>
+                        <li>Based on this information, you enter another word.</li>
+                        <li>If you run out of guesses, of which there are 6, you lose. If you guess it right, you win.</li>
+                    </ol>
+                    <p>
+                        The first step in creating the solver is picking a word to use as the first guess. But what word works the best? According to 
+                        <a href="https://bert.org/2021/11/24/the-best-starting-word-in-wordle/">Bertrand Fan</a>, soare is the best. From an initial glance, this 
+                        actually seems to be like quite a good word - it has three vowels, an 's', and an 'r.' All 5 of these characters are very common in the 
+                        English language. <i> To satisfy your curiosity, soare is an obsolete word defined as a young hawk.</i> <br><br>
+                        With a first word out of the way, the next step was figuring out how to generate the next five words. First, we needed a word set with all 5 letter 
+                        words, which we managed to find in the <a href="https://www.nytimes.com/games/wordle/main.3d28ac0c.js">code of Wordle itself</a>. From here, we 
+                        used a set of character positional frequencies obtained through <a href="https://github.com/medicantBias117/wordle-bruteforce">Rameez Kakodker who tried a 
+                        brute-force approach like us to solving Wordle.</a> Using the frequencies of every letter in each of the 5 possible spots, we generated weights for
+                        all the possible guesses. 
+                        <br><br>
+                        Now, all that was left to do was shrink the list each time we made a guess. After our initial guess "soare," we look at which letters are green,
+                        and eliminate every word that does not have that letter at that spot. We then look at the yellow letters, and remove every word that does not have 
+                        that letter at least once. This leaves us with just a list of valid, updated possible guesses. From here, the weights we applied earlier come in handy,
+                        but a few other factors are at play:
+                    </p>
+                    <ul>
+                        <li>We need to account for words where the same letter is repeated. These are not likely to be the correct word.</li>
+                        <li>We should ideally pick words that use the most new letters as compared to previous words to gain the most data.</li>
+                        <li>At a certain point, we need to stop guessing from the list of all 5 letter words, and shift over to the list of 
+                            acceptable wordle answers, which is a much smaller subset of all 5 letter words.
+                        </li>
+                    </ul>
+                    <p>
+                        All of these factors are not difficult but require various algorithms to run consistently and effectively. Without a lot of data, it is hard 
+                        to pick points where the solver should start using words from the Wordle answer list and it is even more challenging to figure out when the 
+                        solver should stop looking for words with the most new letters in them rather than guesses that are likely. <br><br>
+                        Nonetheless, these are small hurdles in the long jounrey of making a Wordle solver, and with time, coffee, and repeated testing, we will
+                        defeat Wordle with brute force.
+                    </p>
+			</div>
+
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="icons">
+                    <li><a href="https://www.linkedin.com/in/aryaagiwal/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/aryaagiwal" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="tel:2145575697" class="icon solid fa-mobile"></a></li>
+                    <li><a href="mailto:aryaagiwal@utexas.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Arya Agiwal 2022</li><li>Design from <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
