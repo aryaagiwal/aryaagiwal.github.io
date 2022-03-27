@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arya Agiwal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		<header id="header">
+            <div class="inner">
+                <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+                <h1><strong>I am Arya Agiwal.</strong><br>Click around to view my portfolio.</h1>
+            </div>
+        </header>
+
+		<!-- Main -->
+			<div id="main">
+                <section id="one">
+                    <header class="major">
+                        <h2>Wordle Solver: First round of Failure Fixing</h2>
+                    </header>
+                    <p> If you haven't read part 1, please check it out before reading this update. To remind all of us about the edge cases I hoped to 
+                        check, here is the list again:
+                    </p>
+                    <ul>
+                        <li>We need to account for words where the same letter is repeated. These are not likely to be the correct word.</li>
+                        <li>We should ideally pick words that use the most new letters as compared to previous words to gain the most data.</li>
+                        <li>At a certain point, we need to stop guessing from the list of all 5 letter words, and shift over to the list of 
+                            acceptable wordle answers, which is a much smaller subset of all 5 letter words.
+                        </li>
+                    </ul>
+                    <p>
+                        In order to account for repeated letters, I made a simple algorithm that adds all the letters in a word to a set. For 
+                        those unfamiliar with the set data structure (in this case a HashSet), a set takes in distinct values only. In other words,
+                        if a 5 letter word has the letter 'C' twice, then when the second 'C' is added to the set, nothing changes, because it is 
+                        not distinct from the first 'C'. Therefore, each time there is a repeated letter, the size of the set is one smaller. this
+                        method also accounts for situations where two seperate letters are both repeated in a word, since the set will grab both 
+                        letters once, and not add the repeated letters for either of the initial letters. Ideally, if a word has no repeated letters,
+                        then the set would have 5 elements, or a size of 5. Therefore, to adjust the weights of words for repeated letters, we just 
+                        multiply the initial weight by the size of the set, then divide by 5. For words with no repeating letters, this is the same 
+                        as doing nothing since we effectively multiply by 5 then divide by 5. <br><br>
+                        Fortunately, after testing, we saw that the second case I was worried about was handled automatically by the combination 
+                        of the weights being adjusted for repeating letters and weights being based on character positional frequencies. <br><br>
+                        As for the third case, testing also revealed to us that our algorithm already accounts for it? But how can the algorithm
+                        already guess words that belong to the valid Wordle answer set without knowing it? Well, the list of Wordle answers is 
+                        actually composed of common 5 letter words, which means our character positional frequencies already weight those words 
+                        higher than 5 letter words that are more uncommon. Furthermore, my collaborator, Oscar Goes, brought up the valid point 
+                        that if we switch to the Wordle answer set for the 6th guess, we are pretty much cheating. By using only frequency data,
+                        we solve this issue and stay true to the algorithm. <br><br>
+                        All isn't well, however, because we encountered a new issue while running tests. In fact, this issue is common when 
+                        running a variant of Wordle called <a href="https://qntm.org/files/absurdle/absurdle.html">Absurdle</a>. The issue arises 
+                        when four of the five letters are discovered, but there are two many fifth letter possibilities left for our solver to handle. 
+                        Here is an example: 
+                    </p>
+                    <div class="col-12"><span class="image fit"><img src="images/uhoh!.jpg" alt="" /></span></div>	
+                    <p> You might think that not that many words are left for the solver to choose from, but here is what we had left in the list, along
+                        with the weights:
+                    </p>
+                    <pre><code>gatch: 4298
+latch: 4237
+watch: 4073
+hatch: 3319</code></pre>
+                    <p> Right now, the only idea I have to solve this is to do a check on the fourth word: are four of the letters found? If four of the 
+                        letters are green, then we use the remaining fifth letter possibilites to form a sort of temp word. In this case, instead of guessing
+                        "match" for the fifth word, we would try to find a word with as many of the 5th letters left as possible. This would be a word made up of
+                        'm', 'g', 'l', 'w', and 'h,' or as many of these letters as possible. A good try by the solver might be "glamp", which gets four of these.
+                        This would be the fifth word tried, and would ultimately tell us if 'h' is the letter (if all the ones we try in "glamp" are black) or if 
+                        one of the letters in "glamp" is the fifth letter. Then, for the 6th word, we will know exactly what the word is, or at least be significantly
+                        closer.
+                    </p>
+			</div>
+            
+
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="icons">
+                    <li><a href="https://www.linkedin.com/in/aryaagiwal/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/aryaagiwal" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="tel:2145575697" class="icon solid fa-mobile"></a></li>
+                    <li><a href="mailto:aryaagiwal@utexas.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Arya Agiwal 2022</li><li>Design from <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
