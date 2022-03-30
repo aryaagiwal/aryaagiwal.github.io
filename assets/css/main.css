@@ -2397,7 +2397,7 @@ input, select, textarea {
 		}
 
 			table th:nth-child(1) {
-				width: 200px; /* Adjust this to fit first column values in properly */
+				width: 300px; /* Adjust this to fit first column values in properly */
 			}
 
 		table thead {
