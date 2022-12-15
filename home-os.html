@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arya Agiwal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		<header id="header">
+            <div class="inner">
+                <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+                <h1><strong>I am Arya Agiwal.</strong><br>Click around to view my portfolio.</h1>
+            </div>
+        </header>
+
+		<!-- Main -->
+			<div id="main">
+                <section id="one">
+                    <header class="major">
+                        <h2>My home is an operating system? </h2>
+                    </header>
+                    <p> A fair portion of the UTCS department’s sophomore class would argue that I’m quite good at I/O, especially when it comes to 
+                        interleaving OS puns into my everyday speech. My roommates and I do this as an ongoing joke, even with Computer Architecture curriculum 
+                        from last year. You are never confused in my apartment, it’s just that your condition flags are wrong. The fridge never needs to be 
+                        organized, we just need to use compaction. And my personal favorite, you didn’t forget the word you’re looking for, you just have a 
+                        small sized RAM. These ridiculous jokes probably incite laughter more from their ridiculous nature than their humor, but making them 
+                        has always been my favorite way of studying and recalling important CS concepts.
+                    </p>
+                    <p>
+                        However, there comes a point where it becomes second nature, as if the part of the brain that makes these ridiculous comparisons is 
+                        stored in cache (sorry). Unfortunately, this cache of mine is holding code that gets scheduled too often, and I began thinking about 
+                        how homes are awfully like operating systems.
+                    </p>
+                    <p>
+                        My home is like an operating system?
+                    </p>
+                    <p>
+                        Yes. It absolutely is. Well, it at least follows a lot of the principles of one.
+                    </p>
+                    <p>
+                        Let us start with something simple: utilities. How does water get to your house? Every home has a water main that is dedicated to 
+                        connecting and regulating the pressure of water to your pipes. Your plumbing system also has a water pressure regulator to make sure 
+                        that the water isn’t coming at speeds high enough to damage your pipes. This is oddly similar to network interface controllers and TCP 
+                        (Transmission Control Protocol). The network interface control manages data communication for your specific device to the network, the 
+                        way a water main handles water transfer from the city to your home. TCP also makes sure that the data window is at a reasonable size to 
+                        prevent network congestion, similar to how the water pressure regulator makes sure the pressure is in a reasonable range.
+                    </p>
+                    <p>
+                        Next we have electricity. The electricity meter and main panel can be considered the device on the motherboard that allows for 
+                        communication through electricity. The main panel has all your switches to control which rooms or sections of your home have power, 
+                        and for the sake of this post, let us think of each room as a process. Therefore when flipping switches on your main panel, you can 
+                        consider yourself in kernel mode. When using the switches in your rooms, you are in user mode. Speaking of switches in your room, each 
+                        switch is like a user thread for your room, which is the process as we established earlier. Multiple switches can be flipped in a room 
+                        at the same time, as long as the room itself has power. In Operating System terms, your user threads are free to run as long as you don’t 
+                        kill the process that they are all on. Furthermore, the kernel isn’t aware of these user threads (all you can do from your panel is kill 
+                        or bring back processes, you can’t control an individual socket in your room). 
+                    </p>
+                    <p>
+                        I could go over gas as well, but I’m assuming you understand the general idea at this point. Now what else can we model through operating 
+                        systems? Maybe we can look at some of the protection design principles. One of my favorites is separation of privileges. This is the idea 
+                        that if a user needs one permission for one task, they shouldn’t unnecessarily be given access to other permissions. This could lead to 
+                        security risks by giving the user too much power. However, in order to support this principle, the computer system needs to be designed in 
+                        such a way that privileges only depend on each other when necessary. Now how is this mimicked in homes? Think of the water system. You might 
+                        think that some electrical components are used to pump the water up to your actual sinks or higher floors, but that is not the case. The 
+                        water system in your home is entirely mechanical! And if you were already aware of this, then you might wonder why electrical assistance is 
+                        not used anywhere in the water system except for temperature. This is actually the case by intention, because if any crucial components of 
+                        the water system were made electrical, then losing power would mean losing water as well, which is much more dangerous. This is why when you 
+                        lose power to your home, you still have water. Sure, it may be cold, but at least you have it. 
+                    </p>
+                    <p>
+                        Another well known design principle is economy of mechanism. Keep components as simple as possible, and reuse existing working parts when 
+                        possible. When it comes to the construction of your home, this is followed extremely well. No builder is trying to reinvent the window or 
+                        door, these are products that exist and work, so builders just buy them and use them. Similarly, building techniques are reused. 
+                    </p>
+                    <p>
+                        Now I could go on and on with different principles and laws and talk about multilevel feedback in two story AC units or how your attic is 
+                        like your disk drive, but I won’t. There is an endless world of comparisons to be made between any two topics, and I figured I’d share a 
+                        little about what goes through my head as a Computer Science major. As serious as the material can get, it can always be abstracted away 
+                        into jokes, or maybe that’s just how I read my binary, whoever knows? :)
+                    </p>
+			</div>
+        
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="icons">
+                    <li><a href="https://www.linkedin.com/in/aryaagiwal/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/aryaagiwal" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="tel:2145575697" class="icon solid fa-mobile"></a></li>
+                    <li><a href="mailto:aryaagiwal@utexas.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Arya Agiwal 2022</li><li>Design from <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
