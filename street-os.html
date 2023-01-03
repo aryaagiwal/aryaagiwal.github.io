@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arya Agiwal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		<header id="header">
+            <div class="inner">
+                <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+                <h1><strong>I am Arya Agiwal.</strong><br>Click around to view my portfolio.</h1>
+            </div>
+        </header>
+
+		<!-- Main -->
+			<div id="main">
+                <section id="one">
+                    <header class="major">
+                        <h2>The streets are an operating system? </h2>
+                    </header>
+                    <p> If you haven’t already read <a href="home-os.html">Your Home as an OS</a>, I recommend skimming through that first, as it will explain why I’m writing 
+                        this almost comical article on comparisons between streets and operating systems. I can’t be the only one who on long drives 
+                        begins to wander, thinking about what might’ve been and what could be. And if you are me specifically, maybe you’ll think about 
+                        Computer Science analogies…
+                    </p>
+                    <p>
+                        No point waiting any longer to get into it, let us start by assuming that your car is a process, and thus the people in the car 
+                        are threads. If we want to be fancy and classify user and kernel threads, we can say the only kernel thread is the driver. This 
+                        is because every process requires a kernel thread, just like how every car requires a driver. All the other threads, which sit 
+                        in the car in parallel, quite literally, are user threads, which run with virtual parallelism. To the main operating system itself, 
+                        which would be the streets, street lights, police officers, and everything else that plays a role in guiding your car from point A 
+                        to B, the kernel thread of the car is responsible for the car itself. 
+                    </p>
+                    <p>
+                        Now, to broaden the scope of this analogy, let us look at street structures and classify them as components of an operating system. 
+                        Firstly, we can claim that your home garage is like a low-level cache. It allows you to store your car rather efficiently, and this 
+                        is because it exploits locality. On this same line of thought, we can argue that parking lots are also like caches, though not as 
+                        low level, since they provide a much larger cache of cars, typically for locations with a lot more people than your home. As a 
+                        result, they can sometimes not be nearly as fast. For example, imagine that you have parked in the last parking spot for a mall. 
+                        The time it will take you to walk to the entrance of the mall will be much longer than it would have taken you to walk from your 
+                        garage into your house. Now, in a sense, we have established both processes and caching those processes. In fact, it fits perfectly 
+                        that your car would be cached while you are not using it, the same way a process can be cached when it is blocked or waiting on 
+                        something external. Now if parking lots are the caches and processes are the cars, it only makes sense that the network of roads 
+                        itself is an asymmetric multiprocessing system. Each individual road can be a CPU, and if the CPU has multiple lanes, it is a 
+                        multi-core CPU. The reason that the road network is not a symmetric multiprocessing system is because not all roads are treated 
+                        equally. We can say that the faster the road, the more prioritized it is in this system. Therefore highways are prioritized over 
+                        street roads, proving the overall system asymmetric.
+                    </p>
+                    <p>
+                        Something else we can look at is the process type. Not all cars are the same! We have trucks, buses, scooters, and the occasional 
+                        genius who chooses to run on the road itself instead of the sidewalk. All of these, in our analogy, can be differentiated by process 
+                        size (a truck will be a larger process than a car). Furthermore, vehicles that stop more often for people to get on or off can be 
+                        considered I/O bound processes (city buses are I/O bound as a result). Based on this information, what type of scheduling algorithm 
+                        does StreetOS use? Shortest job first, of course. We see it every day. Sports cars overtaking pickup trucks. Pickup trucks overtaking 
+                        18 wheelers. And everything overtaking buses on street roads, especially when they stop at bus stands. Of course, the shortest job 
+                        first scheduler is limited. Just like computers can only estimate which process will be shorter, drivers can only estimate which 
+                        vehicle will make it down the road sooner. Sometimes trucks are faster than cars, and there is no way to predict this future.
+                    </p>
+                    <p>
+                        Ultimately, the road network is much like an operating system in countless ways, and it makes sense as both require precise structuring 
+                        and rules in order to optimize travel time or application runtime respectively. In the process of doing so, both implement a lot of the 
+                        same principles, like taking advantage of locality, leading to so many comparable features. Hopefully the next time you are on the road, 
+                        you appreciate some of the thought that has gone into planning the streets around you, as it is just as complex as an operating system in 
+                        many ways. 
+                    </p>
+			</div>
+        
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="icons">
+                    <li><a href="https://www.linkedin.com/in/aryaagiwal/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/aryaagiwal" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="tel:2145575697" class="icon solid fa-mobile"></a></li>
+                    <li><a href="mailto:aryaagiwal@utexas.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Arya Agiwal 2022</li>
+                </ul>
+            </div>
+        </footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
