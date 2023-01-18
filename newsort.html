@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Arya Agiwal</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+		<header id="header">
+            <div class="inner">
+                <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+                <h1><strong>I am Arya Agiwal.</strong><br>Click around to view my portfolio.</h1>
+            </div>
+        </header>
+
+		<!-- Main -->
+			<div id="main">
+                <section id="one">
+                    <header class="major">
+                        <h2>A Sorting Algorithm Inspired by Codeforces </h2>
+                    </header>
+                    <p> 
+                        I'm currently taking a course here at UT Austin titled Competitive Programming, designed to train students to apply common algorthims to simple coding
+                        challenges. Though my main intention in taking this course is to gain the ability to crack technical interviews and personal satisfaction in solving evil
+                        LeetCode problems, I sometimes get lost in problems as I recreate old Computer Science discoveries. 
+                    </p>
+
+                    <p>
+                        Recently I was tackling <a href="https://codeforces.com/problemset/problem/405/A/">Codeforces' Gravity Flip</a> problem, in which you need to slide
+                        columns of stacked blocks over to the right, as if gravity is pulling the blocks in that direction. Of course, this problem is deceptive. Many might try
+                        multiple loops with countless checks in which they slowly slide blocks over to the last columm. However, getting the height of each column and simply 
+                        sorting by height will yield the right answer as well.
+                    </p>
+
+                    <p>
+                        This got me thinking. Can I reverse this process and create a sorting algorithm. Rather than sorting the heights to find the answer, find the answer to 
+                        sort the heights. In theory it would look something like this:
+                    </p>
+
+                    
+                    <div class="box alt">
+                        <div class="row gtr-50 gtr-uniform">
+                            <div class="col-12"><span class="image fit"><img src="images/gravity.jpg" alt="" /></span></div>
+                        </div>
+                    </div>
+                    
+                    <p>
+                        As you can see from the colors, the boxes don't stay with their adjacent neighbors after they fall. But notice what does happen: the new placement is
+                        sorted. The initial row lengths were 2,3,1,3. Now they are 1,2,3,3. So how do we get to this diagram on the right? One important thing to note is that
+                        since we don't need to make sure that the colors stay next to each other, we can do everything with just numbers. 
+                    </p>
+
+                    <p>
+                        The method I believe is worth dissecting is using an array to store how many blocks are in each column. So for this example, it would be [4,3,2]. Now,
+                        we start from the last index in the array and subtract one till we reach the very beginning. This would leave us with [3,2,1]. And our largest number
+                        will be 3. Now we repeat and get that our second largest number is 3 again (since we will do 3 subtractions again). However the third iteration is where
+                        things change. Our array is now [2,1,0]. Do we start subtracting into the negatives? 
+
+                        No. We shift our end over to the 1, and continue from there. This will yield us a 2, with the array being modified to [1,0,0]. This leaves our last number
+                        to be 1. We know to stop when the first element in the array is 0. Here is the algorithm written in Java:
+                    </p>
+
+                    <pre><code>
+public static void sorter(Integer[] numbers) {
+
+    //find largest valued element
+    int max = Integer.MIN_VALUE;
+    for (int i = 0; i < numbers.length; i++) {
+        if (numbers[i] > max) {
+            max = numbers[i];
+        }
+    }
+
+    //create temporary array that holds number of blocks in each column
+    int[] temp = new int[max];
+    for (int i = 0; i < numbers.length; i++) {
+        for (int j = 0; j < numbers[i]; j++) {
+            temp[j]++;
+        }
+    }
+
+    //start subtracting blocks from the end, and count subtractions
+    //number of subtractions per pass is equivalent to next sorted
+    //element to add to sorted list. Use index pointer to adjust end
+    //of temporary array as needed.
+    ArrayList<Integer> sorted = new ArrayList<>();
+    int idxptr = temp.length - 1;
+    while (temp[0] != 0) {
+        int removed = 0;
+        for (int tempptr = 0; tempptr <= idxptr; tempptr++) {
+            temp[tempptr]--;
+            removed++;
+        }
+        while (idxptr >= 0 && temp[idxptr] == 0) {
+            idxptr--;
+        }
+        sorted.add(removed);
+    }
+}
+                    </code></pre>
+
+                    <p> As it can be seen from the algorithm itself, it is not that complex. First the highest value is found, which takes O(N) time, where N is the number
+                        of elements you want to sort. Next an array is generated that basically represents the block diagram on the left above, but in a 2d manner. This 
+                        takes O(N^2) time. Lastly, instead of sliding the blocks over, we use our algorithm to slowly decrement values until we have nothing left, while
+                        making note of what we decrement following our guidelines to yeild a sorted list. The outer while loop is at most O(N) if every element is unique, and
+                        the inner loop is roughly O(N) as well, bringing this portion of the code to O(N^2) as well. Thus, at a very simplified level, we are expecting something
+                        kind of O(N^2) complexity. Let us see if this holds up after testing.
+                    </p>
+
+                    <pre><code> 
+Sorting randomized list of numbers from 1 to 1          took 1.0         milliseconds
+Sorting randomized list of numbers from 1 to 2          took 0.0         milliseconds
+Sorting randomized list of numbers from 1 to 4          took 0.0         milliseconds
+Sorting randomized list of numbers from 1 to 8          took 0.0         milliseconds
+Sorting randomized list of numbers from 1 to 16         took 0.0         milliseconds
+Sorting randomized list of numbers from 1 to 32         took 0.0         milliseconds
+Sorting randomized list of numbers from 1 to 64         took 0.0         milliseconds
+Sorting randomized list of numbers from 1 to 128        took 1.0         milliseconds
+Sorting randomized list of numbers from 1 to 256        took 2.0         milliseconds
+Sorting randomized list of numbers from 1 to 512        took 3.0         milliseconds
+Sorting randomized list of numbers from 1 to 1024       took 5.0         milliseconds
+Sorting randomized list of numbers from 1 to 2048       took 16.0        milliseconds
+Sorting randomized list of numbers from 1 to 4096       took 20.0        milliseconds
+Sorting randomized list of numbers from 1 to 8192       took 29.0        milliseconds
+Sorting randomized list of numbers from 1 to 16384      took 21.0        milliseconds
+Sorting randomized list of numbers from 1 to 32768      took 121.0       milliseconds
+Sorting randomized list of numbers from 1 to 65536      took 447.0       milliseconds
+Sorting randomized list of numbers from 1 to 131072     took 1359.0      milliseconds
+Sorting randomized list of numbers from 1 to 262144     took 4992.0      milliseconds
+Sorting randomized list of numbers from 1 to 524288     took 31455.0     milliseconds
+Sorting randomized list of numbers from 1 to 1048576    took 163404.0    milliseconds
+Sorting randomized list of numbers from 1 to 2097152    took 689709.0    milliseconds
+                    </code></pre>
+
+                    <p> After creating a simple testing set and recording runtimes, the data above is the results I got. Of course, these are not perfect numbers. countless
+                        external numbers can come into play in influencing the times, especially the smaller ones, and the best way to minimize this error is by repeating the
+                        test. I have personally repeated this test for hours, so I can confidently say that these times are roughly what is outputted on each run. However, if
+                        you want to test the algorithm for yourself, code your own testing harness and run my code snippet from above. Or, feel free to download my code from 
+                        <a href="https://github.com/aryaagiwal/New-Sorting-Algorithm">this repo</a> and change variables to run your own experiements. 
+
+                        Now let us see what type of order this sorting algorithm is on. 
+                    </p>
+
+                    <div class="box alt">
+                        <div class="row gtr-50 gtr-uniform">
+                            <div class="col-12"><span class="image fit"><img src="images/plot.jpg" alt="" /></span></div>
+                        </div>
+                    </div>
+
+                    <p> The quadratic regression formula generated by my calculator has a correlation coefficient of .9999 and cleaerly fits the points very well as shown
+                        above. It is now shown both by logic and by experiementation that the order of this peculiar sorting algorthim is O(N^2). 
+
+                        Though this is nowhere close to as fast as most common sorting algorthims used today, it is still impressive for such a primitive algorithm, and for 
+                        something that just passed my mind. If anyone knows if this already exists, then please let me know through my contact page. I doubt that I have 
+                        discovered something new, and rather have coincidentally rediscovered a horrible sorting algorithm that clearly should not be used (although I may
+                        sneak it into assignments every now and then).
+                    </p>
+			</div>
+        
+		<!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <ul class="icons">
+                    <li><a href="https://www.linkedin.com/in/aryaagiwal/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    <li><a href="https://github.com/aryaagiwal" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="tel:2145575697" class="icon solid fa-mobile"></a></li>
+                    <li><a href="mailto:aryaagiwal@utexas.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; Arya Agiwal 2022</li>
+                </ul>
+            </div>
+        </footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
